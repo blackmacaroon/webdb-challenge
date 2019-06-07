@@ -33,7 +33,7 @@ router
                               'c.city_description',
                               'c.city_visited'
                         )
-                        .where('c.id', req.params.id)
+                        .where({ id: req.params.id})
                         .first()
                   if(city) {
                         res.status(200).json(city)

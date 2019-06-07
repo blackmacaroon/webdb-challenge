@@ -1,6 +1,6 @@
 const router = require('express').Router();
-
-const db = require('../../data/helpers/countriesDB');
+const db = require('../../data/configure.js');
+// const db = require('../../data/helpers/countriesDB');
 
 router
       .get('/', async (req, res) => {
@@ -27,21 +27,21 @@ router
 router
       .get('/:id', async (req, res) => {
             try {
-                  const country = await db('countries as c')
+                  const countries = await db('countries as c')
                         .select(
                               'c.counrty_id',
                               'c.country_name',
                               'c.country_description',
                               'c.country_visited'
                         )
-                        .where('c.id', req.params.id)
+                        .where({id: req.params.id})
                         .first()
-                  const city = await db('cities as cit')
+                  const cities = await db('cities as cit')
                         .join('countries as c', 'c.id', 'cit.city_id')
-
-                              )
+                        .select('cit.city_name', 'cit.city_description', 'cit.city_visited')
+                        .where('cit.country_id', req.params.id)
                   if(country) {
-                        res.status(200).json(country)
+                        res.status(200).json(...country, cities)
                   } else {
                         console.log(error)
                         res.status(404).json({ error: 'that ID does not exist' })
