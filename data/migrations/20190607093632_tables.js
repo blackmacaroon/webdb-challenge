@@ -5,40 +5,40 @@ exports.up = function(knex, Promise) {
                   tbl 
                   .increments();
                   tbl
-                  .string('country-name', 60)
+                  .string('country_name', 60)
                   .notNullable()
                   .unique()
                   tbl
-                  .text('country-description')
+                  .text('country_description')
                   .notNullable()
                   tbl
-                  .boolean('country-visited')
+                  .boolean('country_visited')
             })
             .createTable('cities', tbl => {
                   tbl
                   .increments();
                   tbl
-                  .string('city-name', 60)
+                  .string('city_name', 60)
                   .notNullable()
                   .unique()
                   tbl
-                  .text('city-description')
+                  .text('city_description')
                   .notNullable()
                   tbl
-                  .boolean('city-visited')
+                  .boolean('city_visited')
             })
             .createTable('countrys-cities', tbl => {
                   tbl
                   .increments()
                   tbl
-                  .integer('country-id')
+                  .integer('country_id')
                   .notNullable()
                   .references('id')
                   .inTable('countries')
                   .onDelete('RESTRICT')
                   .onUpdate('CASCADE')
                   tbl
-                  .integer('city-id')
+                  .integer('city_id')
                   .notNullable()
                   .references('id')
                   .inTable('cities')
