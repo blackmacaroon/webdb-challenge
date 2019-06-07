@@ -37,10 +37,11 @@ function getCountry(id) {
                   'city_description',
                   'city_visited'
             )
-            .from('countrys-cities')
-            .innerJoin('countries', function())
-                  // um..
-
-      .where({ 'countrys-cities.country_id': id })
+            .from('countrys-cities')  // um..
+            // .innerJoin('countries').on('country_id', '=', 'countries.id')
+            // .innerJoin('cities').on('cities_id', '=', 'cities.id')
+            .innerJoin('countries', function() {this.on('country_id', '=', 'countries.id')})
+            .innerJoin('cities', function() {this.on('cities_id', '=', 'cities.id')})     
+            .where({'countrys-cities.country_id': id })
       
 }
