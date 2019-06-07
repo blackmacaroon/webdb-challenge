@@ -27,9 +27,9 @@ router
 router
       .get('/:id', async (req, res) => {
             try {
-                  const countries = await db('countries as c')
+                  const country = await db('countries as c')
                         .select(
-                              'c.counrty_id',
+                              'c.id',
                               'c.country_name',
                               'c.country_description',
                               'c.country_visited'
@@ -37,13 +37,12 @@ router
                         .where({id: req.params.id})
                         .first()
                   const cities = await db('cities as cit')
-                        .join('countries as c', 'c.id', 'cit.city_id')
+                        .join('countries as c', 'c.id', 'cit.country_id')
                         .select('cit.city_name', 'cit.city_description', 'cit.city_visited')
                         .where('cit.country_id', req.params.id)
                   if(country) {
-                        res.status(200).json(...country, cities)
+                        res.status(200).json({country, cities})
                   } else {
-                        console.log(error)
                         res.status(404).json({ error: 'that ID does not exist' })
                   }
             } catch (error) {

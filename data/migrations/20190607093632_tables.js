@@ -26,25 +26,32 @@ exports.up = function(knex, Promise) {
                   .notNullable()
                   tbl
                   .boolean('city_visited')
-            })
-            .createTable('countrys-cities', tbl => {
-                  tbl
-                  .increments()
                   tbl
                   .integer('country_id')
-                  .notNullable()
+                  .unsigned()
                   .references('id')
                   .inTable('countries')
                   .onDelete('RESTRICT')
                   .onUpdate('CASCADE')
-                  tbl
-                  .integer('city_id')
-                  .notNullable()
-                  .references('id')
-                  .inTable('cities')
-                  .onDelete('RESTRICT')
-                  .onUpdate('CASCADE')
             })
+            // .createTable('countrys-cities', tbl => {
+            //       tbl
+            //       .increments()
+            //       tbl
+            //       .integer('country_id')
+            //       .notNullable()
+            //       .references('id')
+            //       .inTable('countries')
+            //       .onDelete('RESTRICT')
+            //       .onUpdate('CASCADE')
+            //       tbl
+            //       .integer('city_id')
+            //       .notNullable()
+            //       .references('id')
+            //       .inTable('cities')
+            //       .onDelete('RESTRICT')
+            //       .onUpdate('CASCADE')
+            // })
   
 }; 
 
@@ -52,5 +59,5 @@ exports.down = function(knex, Promise) {
       return knex.schema
             .dropTableIfExists('cities')
             .dropTableIfExists('countries')
-            .dropTableIfExists('countrys-cities')
+            // .dropTableIfExists('countrys-cities')
 };
