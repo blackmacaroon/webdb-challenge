@@ -1,4 +1,4 @@
-const db = require('../config.js');
+const db = require('../configure.js');
 
 
 module.exports = {
